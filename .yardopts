@@ -1,0 +1,9 @@
+--no-private
+--protected
+--markup-provider=redcarpet
+--markup=markdown
+lib/**/*.rb
+-
+README.md
+CHANGELOG.md
+LICENSE.txt

@@ -24,6 +24,15 @@ Or install it yourself as:
 $ gem install umami-ruby
 ```
 
+## Documentation
+
+Full API documentation is available [online](https://rameerez.github.io/umami-ruby/) or can be generated using YARD:
+
+```bash
+yard doc
+yard server
+```
+
 ## Usage
 
 ### Configuration
