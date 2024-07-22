@@ -28,12 +28,25 @@ module Umami
 
     # Authentication endpoints
 
+    def authenticate
+      raise Umami::AuthenticationError, "Username and password are required for authentication" if @username.nil? || @password.nil?
+
+      response = connection.post("/api/auth/login") do |req|
+        req.body = { username: @username, password: @password }.to_json
+      end
+
+      data = JSON.parse(response.body)
+      @access_token = data["token"]
+    rescue Faraday::Error, JSON::ParserError => e
+      raise Umami::AuthenticationError, "Authentication failed: #{e.message}"
+    end
+
     def verify_token
       get("/api/auth/verify")
     end
 
-
     # Users endpoints
+
     def create_user(username, password, role)
       post("/api/users", { username: username, password: password, role: role })
     end
@@ -62,8 +75,8 @@ module Umami
       get("/api/users/#{user_id}/teams", params)
     end
 
-
     # Teams endpoints
+
     def create_team(name)
       post("/api/teams", { name: name })
     end
@@ -112,11 +125,10 @@ module Umami
       get("/api/teams/#{team_id}/websites", params)
     end
 
-
     # Websites endpoints
 
-    def websites
-      get("/api/websites")
+    def websites(params = {})
+      get("/api/websites", params)
     end
 
     def create_website(params = {})
@@ -131,28 +143,54 @@ module Umami
       post("/api/websites/#{website_id}", params)
     end
 
+    def delete_website(website_id)
+      delete("/api/websites/#{website_id}")
+    end
+
     def reset_website(website_id)
       post("/api/websites/#{website_id}/reset")
     end
 
-
     # Website stats endpoints
+
+    def website_active_visitors(id)
+      get("/api/websites/#{id}/active")
+    end
+
+    def website_events(id, params = {})
+      get("/api/websites/#{id}/events", params)
+    end
+
+    def website_pageviews(id, params = {})
+      get("/api/websites/#{id}/pageviews", params)
+    end
+
+    def website_metrics(id, params = {})
+      get("/api/websites/#{id}/metrics", params)
+    end
 
     def website_stats(id, params = {})
       get("/api/websites/#{id}/stats", params)
     end
 
-    def authenticate
-      raise Umami::AuthenticationError, "Username and password are required for authentication" if @username.nil? || @password.nil?
+    # Event data endpoints
 
-      response = connection.post("/api/auth/login") do |req|
-        req.body = { username: @username, password: @password }.to_json
-      end
+    def event_data_events(website_id, params = {})
+      get("/api/event-data/events", params.merge(websiteId: website_id))
+    end
 
-      data = JSON.parse(response.body)
-      @access_token = data["token"]
-    rescue Faraday::Error, JSON::ParserError => e
-      raise Umami::AuthenticationError, "Authentication failed: #{e.message}"
+    def event_data_fields(website_id, params = {})
+      get("/api/event-data/fields", params.merge(websiteId: website_id))
+    end
+
+    def event_data_stats(website_id, params = {})
+      get("/api/event-data/stats", params.merge(websiteId: website_id))
+    end
+
+    # Sending stats endpoint
+
+    def send_event(payload)
+      post("/api/send", { type: "event", payload: payload })
     end
 
     private
