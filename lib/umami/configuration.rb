@@ -10,18 +10,19 @@ module Umami
       @access_token = nil
       @username = nil
       @password = nil
+      @dirty = false
     end
 
     def uri_base=(url)
       @uri_base = url&.chomp('/')
-      validate_configuration
+      @dirty = true
     end
 
     def access_token=(token)
       @access_token = token
       @username = nil
       @password = nil
-      validate_configuration
+      @dirty = true
     end
 
     def credentials=(creds)
@@ -30,16 +31,16 @@ module Umami
       @username = creds[:username]
       @password = creds[:password]
       @access_token = nil
-      validate_configuration
+      @dirty = true
     end
 
     def cloud?
       @access_token && @uri_base.nil?
     end
 
-    private
+    def validate!
+      return unless @dirty
 
-    def validate_configuration
       if cloud?
         @uri_base = UMAMI_CLOUD_URL
         Umami.logger.info "Using Umami Cloud (#{UMAMI_CLOUD_URL})"
@@ -58,6 +59,8 @@ module Umami
       if @uri_base && @uri_base != UMAMI_CLOUD_URL && !@access_token && !@username && !@password
         raise Umami::ConfigurationError, "Authentication is required for self-hosted instances"
       end
+
+      @dirty = false
     end
   end
 end

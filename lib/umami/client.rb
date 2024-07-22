@@ -18,6 +18,8 @@ module Umami
     # @option options [String] :password Password for authentication (only for self-hosted instances)
     def initialize(options = {})
       @config = options[:config] || Umami.configuration
+      @config.validate!  # Validate the configuration before using it
+
       @uri_base = options[:uri_base] || @config.uri_base
       @request_timeout = options[:request_timeout] || @config.request_timeout
       @access_token = options[:access_token] || @config.access_token
@@ -595,5 +597,6 @@ module Umami
         raise Umami::ConfigurationError, "Authentication is required for self-hosted instances"
       end
     end
+
   end
 end
