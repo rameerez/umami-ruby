@@ -26,15 +26,41 @@ $ gem install umami-ruby
 
 ## Usage
 
-First, configure the gem with your Umami API credentials:
+### Configuration
+
+You can put this config in a handy location within your Rails project, like `config/initializers/umami.rb`
+
+#### For self-hosted Umami instances:
 
 ```ruby
+# With username and password
 Umami.configure do |config|
-  config.access_token = "your_umami_access_token"
+  config.uri_base = "https://your-umami-instance.com"
+  config.credentials = {
+    username: "your_username",
+    password: "your_password"
+  }
+end
+
+# Or with an access token
+Umami.configure do |config|
+  config.uri_base = "https://your-umami-instance.com"
+  config.access_token = "your_access_token"
 end
 ```
 
-Then, you can use the client to interact with the Umami API:
+#### For Umami Cloud:
+
+```ruby
+Umami.configure do |config|
+  config.access_token = "your_api_key"
+  # No need to specify uri_base for Umami Cloud
+end
+```
+
+### Using the Client
+
+After configuration, you can use the client to interact with the Umami API:
 
 ```ruby
 client = Umami::Client.new
@@ -47,6 +73,25 @@ website = client.website("website_id")
 
 # Get website stats
 stats = client.website_stats("website_id", { startAt: 1656679719687, endAt: 1656766119687 })
+
+# Verify token
+token_info = client.verify_token
+```
+
+## Error Handling
+
+The gem defines several custom error classes:
+
+- `Umami::ConfigurationError`: Raised for configuration-related issues.
+- `Umami::AuthenticationError`: Raised for authentication-related issues.
+- `Umami::APIError`: Raised for API request failures.
+
+## Logging
+
+The gem uses a logger that can be configured:
+
+```ruby
+Umami.logger.level = Logger::DEBUG
 ```
 
 ## Development

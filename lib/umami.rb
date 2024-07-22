@@ -3,12 +3,12 @@
 require_relative "umami/version"
 require_relative "umami/configuration"
 require_relative "umami/client"
+require_relative "umami/errors"
+require "logger"
 
 module Umami
-  class Error < StandardError; end
-
   class << self
-    attr_writer :configuration
+    attr_writer :configuration, :logger
   end
 
   def self.configuration
@@ -19,7 +19,17 @@ module Umami
     yield(configuration)
   end
 
+  def self.logger
+    @logger ||= Logger.new($stdout).tap do |log|
+      log.progname = self.name
+    end
+  end
+
   def self.reset
     @configuration = Configuration.new
+  end
+
+  def self.client(options = {})
+    Client.new(options)
   end
 end
