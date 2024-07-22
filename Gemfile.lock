@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    umami-ruby (0.1.0)
+    umami-ruby (0.1.1)
       faraday (~> 2.0)
 
 GEM
@@ -16,7 +16,9 @@ GEM
     net-http (0.4.1)
       uri
     rake (13.2.1)
+    redcarpet (3.6.0)
     uri (0.13.0)
+    yard (0.9.36)
 
 PLATFORMS
   arm64-darwin-22
@@ -25,7 +27,9 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 2.0)
   rake (~> 13.0)
+  redcarpet
   umami-ruby!
+  yard
 
 BUNDLED WITH
    2.5.16
