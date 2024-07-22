@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/umami/ruby/version"
+require_relative "lib/umami/version"
 
 Gem::Specification.new do |spec|
   spec.name = "umami-ruby"
-  spec.version = Umami::Ruby::VERSION
+  spec.version = Umami::VERSION
   spec.authors = ["rameerez"]
   spec.email = ["umamiruby@rameerez.com"]
 

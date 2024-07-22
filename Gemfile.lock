@@ -1,0 +1,31 @@
+PATH
+  remote: .
+  specs:
+    umami-ruby (0.1.0)
+      faraday (~> 2.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    faraday (2.10.0)
+      faraday-net_http (>= 2.0, < 3.2)
+      logger
+    faraday-net_http (3.1.0)
+      net-http
+    logger (1.6.0)
+    net-http (0.4.1)
+      uri
+    rake (13.2.1)
+    uri (0.13.0)
+
+PLATFORMS
+  arm64-darwin-22
+  ruby
+
+DEPENDENCIES
+  bundler (~> 2.0)
+  rake (~> 13.0)
+  umami-ruby!
+
+BUNDLED WITH
+   2.5.16

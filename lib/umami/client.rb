@@ -9,6 +9,8 @@ module Umami
       @access_token = access_token || Umami.configuration.access_token
       @uri_base = uri_base || Umami.configuration.uri_base
       @request_timeout = request_timeout || Umami.configuration.request_timeout
+
+      raise Umami::Error, "Access token is required" if @access_token.nil?
     end
 
     def websites
@@ -28,6 +30,8 @@ module Umami
     def get(path, params = {})
       response = connection.get(path, params)
       JSON.parse(response.body)
+    rescue Faraday::Error => e
+      raise Umami::Error, "API request failed: #{e.message}"
     end
 
     def connection
