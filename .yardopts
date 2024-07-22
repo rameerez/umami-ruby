@@ -2,6 +2,7 @@
 --protected
 --markup-provider=redcarpet
 --markup=markdown
+--output-dir docs
 lib/**/*.rb
 -
 README.md
