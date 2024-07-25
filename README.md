@@ -9,7 +9,7 @@ A Ruby wrapper for the Umami analytics API.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'umami-ruby', require: 'umami'
+gem 'umami-ruby'
 ```
 
 And then execute:
