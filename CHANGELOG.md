@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.2.2] - 2026-02-01
+
 ### Added
 
 - `request_timeout=` setter in Configuration class - users can now customize timeout via `Umami.configure` block.
