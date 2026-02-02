@@ -1,8 +1,11 @@
-# Umami Ruby
+# 📊 `umami-ruby` – Ruby client for the Umami Analytics API
 
-[![Gem Version](https://badge.fury.io/rb/umami-ruby.svg)](https://badge.fury.io/rb/umami-ruby)
+[![Gem Version](https://badge.fury.io/rb/umami-ruby.svg)](https://badge.fury.io/rb/umami-ruby) [![Build Status](https://github.com/rameerez/umami-ruby/workflows/Tests/badge.svg)](https://github.com/rameerez/umami-ruby/actions)
 
-A comprehensive Ruby wrapper for the [Umami Analytics API](https://umami.is/docs/api).
+> [!TIP]
+> **🚀 Ship your next Rails app 10x faster!** I've built **[RailsFast](https://railsfast.com/?ref=umami-ruby)**, a production-ready Rails boilerplate template that comes with everything you need to launch a software business in days, not weeks. Go [check it out](https://railsfast.com/?ref=umami-ruby)!
+
+`umami-ruby` is a comprehensive Ruby wrapper for the [Umami Analytics API](https://umami.is/docs/api). Works with both Umami Cloud and self-hosted instances.
 
 ## Installation
 
@@ -473,7 +476,7 @@ Umami.logger = Rails.logger
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `bundle exec rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`.
 

@@ -1,0 +1,66 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.umami-test.example/api/websites/00000000-0000-4000-a000-000000000001/events?endAt=1770053888950&pageSize=5&startAt=1767461888949
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - "<FILTERED>"
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Feb 2026 17:38:09 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
+      - cloudflare
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, DELETE, POST, PUT
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - no-cache
+      X-Dns-Prefetch-Control:
+      - 'on'
+      Content-Security-Policy:
+      - 'default-src ''self''; img-src ''self'' https: data:; script-src ''self''
+        ''unsafe-eval'' ''unsafe-inline''; style-src ''self'' ''unsafe-inline''; connect-src
+        ''self'' https:; frame-ancestors ''self'' ;'
+      Vary:
+      - rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://nel.example.com/report"}]}'
+      Cf-Ray:
+      - 000000000000-XXX
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJkYXRhIjpbeyJpZCI6ImMzN2VjNTE3LWU4NGUtNDdhZS1hNmExLTFiMjU4MGFlODc3MiIsIndlYnNpdGVJZCI6IjczNzJmYmY1LWQ0ZTMtNGI0Ny1hZjYyLTlhMzkwMDBjOWFhNCIsInNlc3Npb25JZCI6IjNlZjcyYTc5LWUyNGYtNWI3MS05YzVmLTMzYTc2ZDQyM2QyOSIsImNyZWF0ZWRBdCI6IjIwMjYtMDItMDJUMTI6NTk6MjQuMTQ5WiIsImhvc3RuYW1lIjoidXNhZ2VjcmVkaXRzLmNvbSIsInVybFBhdGgiOiIvIiwidXJsUXVlcnkiOiIiLCJyZWZlcnJlclBhdGgiOm51bGwsInJlZmVycmVyUXVlcnkiOm51bGwsInJlZmVycmVyRG9tYWluIjpudWxsLCJjb3VudHJ5IjoiSU4iLCJjaXR5IjpudWxsLCJkZXZpY2UiOiJkZXNrdG9wIiwib3MiOiJXaW5kb3dzIDEwIiwiYnJvd3NlciI6ImNocm9tZSIsInBhZ2VUaXRsZSI6IvCfkrPinKggdXNhZ2VfY3JlZGl0cyBSdWJ5IGdlbSBkZW1vIGFwcCIsImV2ZW50VHlwZSI6MSwiZXZlbnROYW1lIjpudWxsLCJoYXNEYXRhIjpmYWxzZX0seyJpZCI6IjQ3ZmE5MGNjLTQ0NWYtNDFjZS04MTA1LWFmZjJlYmM2MWZlNCIsIndlYnNpdGVJZCI6IjczNzJmYmY1LWQ0ZTMtNGI0Ny1hZjYyLTlhMzkwMDBjOWFhNCIsInNlc3Npb25JZCI6IjNlZjcyYTc5LWUyNGYtNWI3MS05YzVmLTMzYTc2ZDQyM2QyOSIsImNyZWF0ZWRBdCI6IjIwMjYtMDItMDJUMTI6NTk6MTcuNDc5WiIsImhvc3RuYW1lIjoidXNhZ2VjcmVkaXRzLmNvbSIsInVybFBhdGgiOiIvIiwidXJsUXVlcnkiOiIiLCJyZWZlcnJlclBhdGgiOm51bGwsInJlZmVycmVyUXVlcnkiOm51bGwsInJlZmVycmVyRG9tYWluIjpudWxsLCJjb3VudHJ5IjoiSU4iLCJjaXR5IjpudWxsLCJkZXZpY2UiOiJkZXNrdG9wIiwib3MiOiJXaW5kb3dzIDEwIiwiYnJvd3NlciI6ImNocm9tZSIsInBhZ2VUaXRsZSI6IvCfkrPinKggdXNhZ2VfY3JlZGl0cyBSdWJ5IGdlbSBkZW1vIGFwcCIsImV2ZW50VHlwZSI6MSwiZXZlbnROYW1lIjpudWxsLCJoYXNEYXRhIjpmYWxzZX0seyJpZCI6IjFlZjBhZmEwLWM3YjQtNGI5YS05MTNmLTI4NjA0ODQyOWJlMiIsIndlYnNpdGVJZCI6IjczNzJmYmY1LWQ0ZTMtNGI0Ny1hZjYyLTlhMzkwMDBjOWFhNCIsInNlc3Npb25JZCI6IjNlZjcyYTc5LWUyNGYtNWI3MS05YzVmLTMzYTc2ZDQyM2QyOSIsImNyZWF0ZWRBdCI6IjIwMjYtMDItMDJUMTI6NTk6MDMuOTM2WiIsImhvc3RuYW1lIjoidXNhZ2VjcmVkaXRzLmNvbSIsInVybFBhdGgiOiIvIiwidXJsUXVlcnkiOiIiLCJyZWZlcnJlclBhdGgiOm51bGwsInJlZmVycmVyUXVlcnkiOm51bGwsInJlZmVycmVyRG9tYWluIjpudWxsLCJjb3VudHJ5IjoiSU4iLCJjaXR5IjpudWxsLCJkZXZpY2UiOiJkZXNrdG9wIiwib3MiOiJXaW5kb3dzIDEwIiwiYnJvd3NlciI6ImNocm9tZSIsInBhZ2VUaXRsZSI6IvCfkrPinKggdXNhZ2VfY3JlZGl0cyBSdWJ5IGdlbSBkZW1vIGFwcCIsImV2ZW50VHlwZSI6MSwiZXZlbnROYW1lIjpudWxsLCJoYXNEYXRhIjpmYWxzZX0seyJpZCI6IjgxM2I2ODRkLWU5ODEtNDdkYy04ODIxLTEzZTNmZTQ4Mzk3NyIsIndlYnNpdGVJZCI6IjczNzJmYmY1LWQ0ZTMtNGI0Ny1hZjYyLTlhMzkwMDBjOWFhNCIsInNlc3Npb25JZCI6IjNlZjcyYTc5LWUyNGYtNWI3MS05YzVmLTMzYTc2ZDQyM2QyOSIsImNyZWF0ZWRBdCI6IjIwMjYtMDItMDJUMTI6NTg6NDYuOTU0WiIsImhvc3RuYW1lIjoidXNhZ2VjcmVkaXRzLmNvbSIsInVybFBhdGgiOiIvIiwidXJsUXVlcnkiOiIiLCJyZWZlcnJlclBhdGgiOm51bGwsInJlZmVycmVyUXVlcnkiOm51bGwsInJlZmVycmVyRG9tYWluIjpudWxsLCJjb3VudHJ5IjoiSU4iLCJjaXR5IjpudWxsLCJkZXZpY2UiOiJkZXNrdG9wIiwib3MiOiJXaW5kb3dzIDEwIiwiYnJvd3NlciI6ImNocm9tZSIsInBhZ2VUaXRsZSI6IvCfkrPinKggdXNhZ2VfY3JlZGl0cyBSdWJ5IGdlbSBkZW1vIGFwcCIsImV2ZW50VHlwZSI6MSwiZXZlbnROYW1lIjpudWxsLCJoYXNEYXRhIjpmYWxzZX0seyJpZCI6IjRkYTJmMjc0LWMwYTItNDYxNC1hMzQ4LTlkOGMwMDgxMTMwMSIsIndlYnNpdGVJZCI6IjczNzJmYmY1LWQ0ZTMtNGI0Ny1hZjYyLTlhMzkwMDBjOWFhNCIsInNlc3Npb25JZCI6IjlkNmMzOWJjLThjYTEtNWFjZC04MTczLWI2Zjk0NDBiYjIxZiIsImNyZWF0ZWRBdCI6IjIwMjYtMDItMDJUMDc6NTE6MTEuNTE3WiIsImhvc3RuYW1lIjoidXNhZ2VjcmVkaXRzLmNvbSIsInVybFBhdGgiOiIvIiwidXJsUXVlcnkiOiIiLCJyZWZlcnJlclBhdGgiOm51bGwsInJlZmVycmVyUXVlcnkiOm51bGwsInJlZmVycmVyRG9tYWluIjpudWxsLCJjb3VudHJ5IjoiUk8iLCJjaXR5IjpudWxsLCJkZXZpY2UiOiJsYXB0b3AiLCJvcyI6Ik1hYyBPUyIsImJyb3dzZXIiOiJzYWZhcmkiLCJwYWdlVGl0bGUiOiLwn5Kz4pyoIHVzYWdlX2NyZWRpdHMgUnVieSBnZW0gZGVtbyBhcHAiLCJldmVudFR5cGUiOjEsImV2ZW50TmFtZSI6bnVsbCwiaGFzRGF0YSI6ZmFsc2V9XSwiY291bnQiOjE2OSwicGFnZSI6MSwicGFnZVNpemUiOjV9
+  recorded_at: Mon, 02 Feb 2026 17:38:09 GMT
+recorded_with: VCR 6.4.0

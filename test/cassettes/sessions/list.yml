@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.umami-test.example/api/websites/00000000-0000-4000-a000-000000000001/sessions?endAt=1770053887750&pageSize=5&startAt=1767461887750
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - "<FILTERED>"
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Feb 2026 17:38:08 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
+      - cloudflare
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, DELETE, POST, PUT
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - no-cache
+      X-Dns-Prefetch-Control:
+      - 'on'
+      Content-Security-Policy:
+      - 'default-src ''self''; img-src ''self'' https: data:; script-src ''self''
+        ''unsafe-eval'' ''unsafe-inline''; style-src ''self'' ''unsafe-inline''; connect-src
+        ''self'' https:; frame-ancestors ''self'' ;'
+      Vary:
+      - rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://nel.example.com/report"}]}'
+      Cf-Ray:
+      - 000000000000-XXX
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: '{"data":[{"id":"00000000-0000-4000-a000-000000000301","websiteId":"00000000-0000-4000-a000-000000000001","hostname":"testsite.example.com","browser":"chrome","os":"Windows
+        10","device":"desktop","screen":"2048x1152","language":"en-US","country":"IN","region":null,"city":null,"firstAt":"2026-02-02T12:58:46.954Z","lastAt":"2026-02-02T12:59:24.149Z","visits":1,"views":4,"createdAt":"2026-02-02T12:59:24.149Z"},{"id":"00000000-0000-4000-a000-000000000302","websiteId":"00000000-0000-4000-a000-000000000001","hostname":"testsite.example.com","browser":"safari","os":"Mac
+        OS","device":"laptop","screen":"1680x1050","language":"en-GB","country":"RO","region":null,"city":null,"firstAt":"2026-02-02T07:51:11.517Z","lastAt":"2026-02-02T07:51:11.517Z","visits":1,"views":1,"createdAt":"2026-02-02T07:51:11.517Z"},{"id":"00000000-0000-4000-a000-000000000303","websiteId":"00000000-0000-4000-a000-000000000001","hostname":"testsite.example.com","browser":"chrome","os":"Android
+        OS","device":"mobile","screen":"360x800","language":"en-GB","country":"GR","region":null,"city":null,"firstAt":"2026-02-01T23:27:21.145Z","lastAt":"2026-02-01T23:27:21.145Z","visits":1,"views":1,"createdAt":"2026-02-01T23:27:21.145Z"},{"id":"00000000-0000-4000-a000-000000000304","websiteId":"00000000-0000-4000-a000-000000000001","hostname":"testsite.example.com","browser":"chrome","os":"Android
+        OS","device":"mobile","screen":"360x792","language":"el-GR","country":"GR","region":null,"city":null,"firstAt":"2026-02-01T23:27:08.877Z","lastAt":"2026-02-01T23:27:08.877Z","visits":1,"views":1,"createdAt":"2026-02-01T23:27:08.877Z"},{"id":"00000000-0000-4000-a000-000000000305","websiteId":"00000000-0000-4000-a000-000000000001","hostname":"testsite.example.com","browser":"safari","os":"Mac
+        OS","device":"laptop","screen":"1512x982","language":"en-US","country":"US","region":null,"city":null,"firstAt":"2026-02-01T18:03:10.300Z","lastAt":"2026-02-01T18:03:10.300Z","visits":1,"views":1,"createdAt":"2026-02-01T18:03:10.300Z"}],"count":55,"page":1,"pageSize":5}'
+  recorded_at: Mon, 02 Feb 2026 17:38:08 GMT
+recorded_with: VCR 6.4.0

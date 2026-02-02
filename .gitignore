@@ -2,7 +2,32 @@
 /.yardoc
 /_yardoc/
 /coverage/
+/doc/
 /pkg/
 /spec/reports/
 /tmp/
-/dist
+
+# For gems, ignore all lockfiles to allow flexible dependency resolution
+Gemfile.lock
+gemfiles/*.lock
+
+# Environment files with real credentials
+.env
+.env.local
+.env.test.local
+
+# IDE / Editor
+.vscode/
+.cursor/
+.claude/
+.aux/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+/dist/
+
+TODO
