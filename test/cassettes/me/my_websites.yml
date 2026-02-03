@@ -1,0 +1,65 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.umami-test.example/api/me/websites
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - "<FILTERED>"
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Feb 2026 17:38:03 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
+      - cloudflare
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, DELETE, POST, PUT
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - no-cache
+      X-Dns-Prefetch-Control:
+      - 'on'
+      Content-Security-Policy:
+      - 'default-src ''self''; img-src ''self'' https: data:; script-src ''self''
+        ''unsafe-eval'' ''unsafe-inline''; style-src ''self'' ''unsafe-inline''; connect-src
+        ''self'' https:; frame-ancestors ''self'' ;'
+      Vary:
+      - rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://nel.example.com/report"}]}'
+      Cf-Ray:
+      - 000000000000-XXX
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: '{"data":[{"id":"00000000-0000-4000-a000-000000000003","name":"TestSite3","domain":"site3.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2025-02-22T22:13:29.122Z","updatedAt":"2025-02-22T22:13:29.122Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000004","name":"TestSite4","domain":"site4.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2024-07-21T03:07:46.205Z","updatedAt":"2024-07-21T03:07:46.205Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000005","name":"TestSite5","domain":"site5.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2025-02-16T01:22:17.309Z","updatedAt":"2025-02-16T01:22:17.309Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000006","name":"TestSite6","domain":"site6.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2024-07-21T03:22:13.509Z","updatedAt":"2024-07-21T03:22:13.509Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000007","name":"TestSite1","domain":"site1.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2024-07-21T03:03:08.622Z","updatedAt":"2024-07-21T03:03:08.622Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000008","name":"TestSite7","domain":"site7.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2024-07-21T03:33:00.013Z","updatedAt":"2024-07-21T03:33:00.013Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000002","name":"TestProject2","domain":"apikeys.testdomain.example.com","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2025-04-30T16:33:32.363Z","updatedAt":"2025-04-30T16:33:32.363Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000009","name":"testdomain.example.com","domain":"testdomain.example.com","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2024-07-21T02:58:43.987Z","updatedAt":"2025-08-23T23:34:14.784Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000010","name":"TestSite15","domain":"site15.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2024-07-21T03:34:08.732Z","updatedAt":"2024-07-21T03:34:08.732Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000011","name":"TestSite8","domain":"site8.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2024-07-21T03:05:19.465Z","updatedAt":"2024-07-21T03:05:19.465Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000012","name":"TestSite9","domain":"site9.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2025-02-16T01:21:43.159Z","updatedAt":"2025-02-16T01:21:43.159Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000001","name":"TestProject1","domain":"testsite.example.com","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2025-02-15T17:36:20.500Z","updatedAt":"2025-02-15T17:36:20.500Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000013","name":"TestSite16","domain":"site16.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2025-01-13T00:51:33.193Z","updatedAt":"2025-01-13T00:51:33.193Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000014","name":"TestSite10","domain":"site10.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2024-07-21T03:20:06.774Z","updatedAt":"2024-07-21T03:20:06.774Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000015","name":"TestSite17","domain":"site17.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2025-05-18T16:54:06.598Z","updatedAt":"2025-05-18T16:54:06.598Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000016","name":"TestSite2","domain":"site2.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2026-01-11T20:20:03.792Z","updatedAt":"2026-01-11T20:20:03.792Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000017","name":"TestSite11","domain":"site11.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2024-07-21T03:29:55.587Z","updatedAt":"2024-07-21T03:29:55.587Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000018","name":"TestSite12","domain":"site12.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2024-07-21T03:04:27.508Z","updatedAt":"2024-07-21T03:04:27.508Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000019","name":"TestSite13","domain":"site13.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2024-07-21T03:31:04.230Z","updatedAt":"2024-07-21T03:31:04.230Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}},{"id":"00000000-0000-4000-a000-000000000020","name":"TestSite14","domain":"site14.test.example","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2024-07-21T03:27:55.156Z","updatedAt":"2024-07-21T03:27:55.156Z","deletedAt":null,"user":{"username":"admin","id":"00000000-0000-4000-a000-000000000100"}}],"count":22,"page":1,"pageSize":20}'
+  recorded_at: Mon, 02 Feb 2026 17:38:03 GMT
+recorded_with: VCR 6.4.0

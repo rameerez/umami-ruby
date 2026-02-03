@@ -1,0 +1,65 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.umami-test.example/api/me/teams
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - "<FILTERED>"
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Feb 2026 17:38:03 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
+      - cloudflare
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, DELETE, POST, PUT
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - no-cache
+      X-Dns-Prefetch-Control:
+      - 'on'
+      Content-Security-Policy:
+      - 'default-src ''self''; img-src ''self'' https: data:; script-src ''self''
+        ''unsafe-eval'' ''unsafe-inline''; style-src ''self'' ''unsafe-inline''; connect-src
+        ''self'' https:; frame-ancestors ''self'' ;'
+      Vary:
+      - rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://nel.example.com/report"}]}'
+      Cf-Ray:
+      - 000000000000-XXX
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: '{"data":[{"id":"00000000-0000-4000-a000-000000000200","name":"TestTeam","accessCode":"team_test_access_code_123","logoUrl":null,"createdAt":"2026-01-27T16:21:14.507Z","updatedAt":"2026-01-27T16:21:14.507Z","deletedAt":null,"members":[{"id":"00000000-0000-4000-a000-000000000201","teamId":"00000000-0000-4000-a000-000000000200","userId":"00000000-0000-4000-a000-000000000100","role":"team-owner","createdAt":"2026-01-27T16:21:14.511Z","updatedAt":"2026-01-27T16:21:14.511Z","user":{"id":"00000000-0000-4000-a000-000000000100","username":"admin"}}],"_count":{"websites":0,"members":1}}],"count":1,"page":1,"pageSize":20}'
+  recorded_at: Mon, 02 Feb 2026 17:38:03 GMT
+recorded_with: VCR 6.4.0

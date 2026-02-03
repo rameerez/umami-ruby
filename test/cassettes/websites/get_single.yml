@@ -1,0 +1,65 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.umami-test.example/api/websites/00000000-0000-4000-a000-000000000001
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - "<FILTERED>"
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Feb 2026 17:38:04 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
+      - cloudflare
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, DELETE, POST, PUT
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - no-cache
+      X-Dns-Prefetch-Control:
+      - 'on'
+      Content-Security-Policy:
+      - 'default-src ''self''; img-src ''self'' https: data:; script-src ''self''
+        ''unsafe-eval'' ''unsafe-inline''; style-src ''self'' ''unsafe-inline''; connect-src
+        ''self'' https:; frame-ancestors ''self'' ;'
+      Vary:
+      - rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://nel.example.com/report"}]}'
+      Cf-Ray:
+      - 000000000000-XXX
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"00000000-0000-4000-a000-000000000001","name":"TestProject1","domain":"testsite.example.com","shareId":null,"resetAt":null,"userId":"00000000-0000-4000-a000-000000000100","teamId":null,"createdBy":"00000000-0000-4000-a000-000000000100","createdAt":"2025-02-15T17:36:20.500Z","updatedAt":"2025-02-15T17:36:20.500Z","deletedAt":null}'
+  recorded_at: Mon, 02 Feb 2026 17:38:04 GMT
+recorded_with: VCR 6.4.0
