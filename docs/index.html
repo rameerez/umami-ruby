@@ -57,11 +57,16 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h1 id="umami-ruby">Umami Ruby</h1>
+      <div id="content"><div id='filecontents'><h1 id="umami-ruby-ruby-client-for-the-umami-analytics-api">📊 <code>umami-ruby</code> – Ruby client for the Umami Analytics API</h1>
 
-<p><a href="https://badge.fury.io/rb/umami-ruby"><img src="https://badge.fury.io/rb/umami-ruby.svg" alt="Gem Version"></a></p>
+<p><a href="https://badge.fury.io/rb/umami-ruby"><img src="https://badge.fury.io/rb/umami-ruby.svg" alt="Gem Version"></a> <a href="https://github.com/rameerez/umami-ruby/actions"><img src="https://github.com/rameerez/umami-ruby/workflows/Tests/badge.svg" alt="Build Status"></a></p>
 
-<p>A Ruby wrapper for the Umami analytics API.</p>
+<blockquote>
+<p>[!TIP]
+<strong>🚀 Ship your next Rails app 10x faster!</strong> I&#39;ve built <strong><a href="https://railsfast.com/?ref=umami-ruby">RailsFast</a></strong>, a production-ready Rails boilerplate template that comes with everything you need to launch a software business in days, not weeks. Go <a href="https://railsfast.com/?ref=umami-ruby">check it out</a>!</p>
+</blockquote>
+
+<p><code>umami-ruby</code> is a comprehensive Ruby wrapper for the <a href="https://umami.is/docs/api">Umami Analytics API</a>. Works with both Umami Cloud and self-hosted instances.</p>
 
 <h2 id="installation">Installation</h2>
 
@@ -88,15 +93,27 @@
 yard server
 </code></pre>
 
-<h2 id="usage">Usage</h2>
-
-<h3 id="configuration">Configuration</h3>
+<h2 id="configuration">Configuration</h2>
 
 <p>You can put this config in a handy location within your Rails project, like <code>config/initializers/umami.rb</code></p>
 
-<h4 id="for-self-hosted-umami-instances">For self-hosted Umami instances:</h4>
+<h3 id="for-umami-cloud">For Umami Cloud</h3>
 
-<pre class="code ruby"><code class="ruby"><span class='comment'># With username and password
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="Umami.html#configure-class_method" title="Umami.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_access_token'>access_token</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>your_api_key</span><span class='tstring_end'>&quot;</span></span>
+  <span class='comment'># No need to specify uri_base - automatically uses https://api.umami.is
+</span><span class='kw'>end</span>
+</code></pre>
+
+<h3 id="for-self-hosted-umami-instances">For Self-Hosted Umami Instances</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># With an access token
+</span><span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="Umami.html#configure-class_method" title="Umami.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_uri_base'>uri_base</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://your-umami-instance.com</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_access_token'>access_token</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>your_access_token</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span>
+
+<span class='comment'># Or with username and password
 </span><span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="Umami.html#configure-class_method" title="Umami.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_uri_base'>uri_base</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://your-umami-instance.com</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_credentials'>credentials</span> <span class='op'>=</span> <span class='lbrace'>{</span>
@@ -104,27 +121,54 @@ yard server
     <span class='label'>password:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>your_password</span><span class='tstring_end'>&quot;</span></span>
   <span class='rbrace'>}</span>
 <span class='kw'>end</span>
-
-<span class='comment'># Or with an access token
-</span><span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="Umami.html#configure-class_method" title="Umami.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
-  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_uri_base'>uri_base</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://your-umami-instance.com</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_access_token'>access_token</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>your_access_token</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span>
 </code></pre>
 
-<h4 id="for-umami-cloud">For Umami Cloud:</h4>
+<h3 id="configuration-options">Configuration Options</h3>
 
-<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="Umami.html#configure-class_method" title="Umami.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+<table><thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>access_token</code></td>
+<td>API key for Umami Cloud or access token for self-hosted</td>
+<td><code>nil</code></td>
+</tr>
+<tr>
+<td><code>uri_base</code></td>
+<td>Base URL for self-hosted instances</td>
+<td>Auto-detected</td>
+</tr>
+<tr>
+<td><code>credentials</code></td>
+<td>Hash with <code>:username</code> and <code>:password</code> for self-hosted</td>
+<td><code>nil</code></td>
+</tr>
+<tr>
+<td><code>request_timeout</code></td>
+<td>Request timeout in seconds</td>
+<td><code>120</code></td>
+</tr>
+</tbody></table>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Example with custom timeout
+</span><span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="Umami.html#configure-class_method" title="Umami.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_access_token'>access_token</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>your_api_key</span><span class='tstring_end'>&quot;</span></span>
-  <span class='comment'># No need to specify uri_base for Umami Cloud
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_request_timeout'>request_timeout</span> <span class='op'>=</span> <span class='int'>60</span>  <span class='comment'># 60 seconds
 </span><span class='kw'>end</span>
 </code></pre>
 
-<h3 id="using-the-client">Using the Client</h3>
+<h2 id="usage">Usage</h2>
 
-<p>After configuration, you can use the client to interact with the Umami API:</p>
+<h3 id="basic-usage">Basic Usage</h3>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Umami/Client.html" title="Umami::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Umami/Client.html#initialize-instance_method" title="Umami::Client#initialize (method)">new</a></span></span>
+
+<span class='comment'># Get current user info
+</span><span class='id identifier rubyid_me'>me</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_me'>me</span>
 
 <span class='comment'># Get all websites
 </span><span class='id identifier rubyid_websites'>websites</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_websites'>websites</span>
@@ -132,33 +176,424 @@ yard server
 <span class='comment'># Get a specific website
 </span><span class='id identifier rubyid_website'>website</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website'>website</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 
-<span class='comment'># Get website stats
-</span><span class='id identifier rubyid_stats'>stats</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website_stats'>website_stats</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>startAt:</span> <span class='int'>1656679719687</span><span class='comma'>,</span> <span class='label'>endAt:</span> <span class='int'>1656766119687</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
-
 <span class='comment'># Verify token
 </span><span class='id identifier rubyid_token_info'>token_info</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_verify_token'>verify_token</span>
 </code></pre>
+
+<h3 id="website-statistics">Website Statistics</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Get website stats for a time range (timestamps in milliseconds)
+</span><span class='id identifier rubyid_stats'>stats</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website_stats'>website_stats</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+  <span class='label'>startAt:</span> <span class='int'>1656679719687</span><span class='comma'>,</span>
+  <span class='label'>endAt:</span> <span class='int'>1656766119687</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Get active visitors (last 5 minutes)
+</span><span class='id identifier rubyid_active'>active</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website_active_visitors'>website_active_visitors</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+<span class='comment'># Get pageviews with time grouping
+</span><span class='id identifier rubyid_pageviews'>pageviews</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website_pageviews'>website_pageviews</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+  <span class='label'>startAt:</span> <span class='int'>1656679719687</span><span class='comma'>,</span>
+  <span class='label'>endAt:</span> <span class='int'>1656766119687</span><span class='comma'>,</span>
+  <span class='label'>unit:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>day</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>timezone:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>America/Los_Angeles</span><span class='tstring_end'>&quot;</span></span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Get metrics by type
+</span><span class='id identifier rubyid_metrics'>metrics</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website_metrics'>website_metrics</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+  <span class='label'>startAt:</span> <span class='int'>1656679719687</span><span class='comma'>,</span>
+  <span class='label'>endAt:</span> <span class='int'>1656766119687</span><span class='comma'>,</span>
+  <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>browser</span><span class='tstring_end'>&quot;</span></span>  <span class='comment'># or: path, referrer, os, device, country, etc.
+</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Get realtime stats (last 30 minutes)
+</span><span class='id identifier rubyid_realtime'>realtime</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_realtime'>realtime</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</code></pre>
+
+<h3 id="sending-events">Sending Events</h3>
+
+<p>Send custom events to Umami for tracking. This is useful for server-side event tracking.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Umami/Client.html" title="Umami::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Umami/Client.html#initialize-instance_method" title="Umami::Client#initialize (method)">new</a></span></span>
+
+<span class='comment'># Send a basic event
+</span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_send_event'>send_event</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+  <span class='label'>website:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>your-website-id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/checkout</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>hostname:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>example.com</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>purchase_completed</span><span class='tstring_end'>&quot;</span></span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Send an event with custom data
+</span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_send_event'>send_event</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+  <span class='label'>website:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>your-website-id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/checkout</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>hostname:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>example.com</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>purchase_completed</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>language:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>en-US</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>screen:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1920x1080</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>title:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Checkout - Example Store</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>data:</span> <span class='lbrace'>{</span>
+    <span class='label'>order_id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>12345</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>total:</span> <span class='float'>99.99</span><span class='comma'>,</span>
+    <span class='label'>currency:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>USD</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rbrace'>}</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Send with a custom User-Agent (optional)
+</span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_send_event'>send_event</span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='comma'>,</span> <span class='label'>user_agent:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MyApp/1.0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</code></pre>
+
+<p><strong>Important notes about <code>send_event</code>:</strong></p>
+
+<ul>
+<li>No authentication token is sent (not required by the API)</li>
+<li>A <code>User-Agent</code> header is automatically included (required by Umami)</li>
+<li>For Umami Cloud, requests go to <code>https://cloud.umami.is/api/send</code> (different from other API calls)</li>
+<li>For self-hosted, requests go to your configured <code>uri_base</code></li>
+</ul>
+
+<h3 id="sessions">Sessions</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Get sessions within a time range
+</span><span class='id identifier rubyid_sessions'>sessions</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website_sessions'>website_sessions</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+  <span class='label'>startAt:</span> <span class='int'>1656679719687</span><span class='comma'>,</span>
+  <span class='label'>endAt:</span> <span class='int'>1656766119687</span><span class='comma'>,</span>
+  <span class='label'>page:</span> <span class='int'>1</span><span class='comma'>,</span>
+  <span class='label'>pageSize:</span> <span class='int'>20</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Get session statistics
+</span><span class='id identifier rubyid_stats'>stats</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website_sessions_stats'>website_sessions_stats</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+  <span class='label'>startAt:</span> <span class='int'>1656679719687</span><span class='comma'>,</span>
+  <span class='label'>endAt:</span> <span class='int'>1656766119687</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Get individual session details
+</span><span class='id identifier rubyid_session'>session</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website_session'>website_session</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>session_id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+<span class='comment'># Get session activity
+</span><span class='id identifier rubyid_activity'>activity</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website_session_activity'>website_session_activity</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>session_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+  <span class='label'>startAt:</span> <span class='int'>1656679719687</span><span class='comma'>,</span>
+  <span class='label'>endAt:</span> <span class='int'>1656766119687</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+</code></pre>
+
+<h3 id="events-data">Events Data</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Get paginated event list with search
+</span><span class='id identifier rubyid_events'>events</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website_events_list'>website_events_list</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+  <span class='label'>startAt:</span> <span class='int'>1656679719687</span><span class='comma'>,</span>
+  <span class='label'>endAt:</span> <span class='int'>1656766119687</span><span class='comma'>,</span>
+  <span class='label'>search:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>click</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>page:</span> <span class='int'>1</span><span class='comma'>,</span>
+  <span class='label'>pageSize:</span> <span class='int'>20</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Get event data aggregations
+</span><span class='id identifier rubyid_event_data'>event_data</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website_event_data_events'>website_event_data_events</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+  <span class='label'>startAt:</span> <span class='int'>1656679719687</span><span class='comma'>,</span>
+  <span class='label'>endAt:</span> <span class='int'>1656766119687</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Get event statistics
+</span><span class='id identifier rubyid_stats'>stats</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website_event_data_stats'>website_event_data_stats</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+  <span class='label'>startAt:</span> <span class='int'>1656679719687</span><span class='comma'>,</span>
+  <span class='label'>endAt:</span> <span class='int'>1656766119687</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+</code></pre>
+
+<h3 id="reports">Reports</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># List reports (optionally filter by website and/or type)
+</span><span class='id identifier rubyid_all_reports'>all_reports</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_reports'>reports</span>
+<span class='id identifier rubyid_website_reports'>website_reports</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_reports'>reports</span><span class='lparen'>(</span><span class='label'>websiteId:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_funnel_reports'>funnel_reports</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_reports'>reports</span><span class='lparen'>(</span><span class='label'>websiteId:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>funnel</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+<span class='comment'># Create a report
+</span><span class='id identifier rubyid_report'>report</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_report'>create_report</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+  <span class='label'>websiteId:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>funnel</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Checkout Funnel</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>parameters:</span> <span class='lbrace'>{</span>
+    <span class='label'>startDate:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2024-01-01T00:00:00Z</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>endDate:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2024-01-31T23:59:59Z</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rbrace'>}</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Run specialized reports
+</span><span class='id identifier rubyid_funnel'>funnel</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_report_funnel'>report_funnel</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+  <span class='label'>websiteId:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>startDate:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2024-01-01T00:00:00Z</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>endDate:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2024-01-31T23:59:59Z</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>steps:</span> <span class='lbracket'>[</span>
+    <span class='lbrace'>{</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>path</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>value:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='lbrace'>{</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>path</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>value:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/checkout</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='lbrace'>{</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>path</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>value:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/thank-you</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+  <span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>window:</span> <span class='int'>7</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_retention'>retention</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_report_retention'>report_retention</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+  <span class='label'>websiteId:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>startDate:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2024-01-01T00:00:00Z</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>endDate:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2024-01-31T23:59:59Z</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>timezone:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>America/Los_Angeles</span><span class='tstring_end'>&quot;</span></span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Available report types: attribution, breakdown, funnel, goal, journey, retention, revenue, utm
+</span></code></pre>
+
+<p><strong>Report types:</strong>
+| Type | Description |
+|------|-------------|
+| <code>attribution</code> | Marketing channel attribution analysis |
+| <code>breakdown</code> | Multi-dimensional data segmentation |
+| <code>funnel</code> | Conversion funnel tracking |
+| <code>goal</code> | Goal performance metrics |
+| <code>journey</code> | User navigation path analysis |
+| <code>retention</code> | Return visitor analysis |
+| <code>revenue</code> | Revenue tracking and analysis |
+| <code>utm</code> | UTM campaign parameter breakdown |</p>
+
+<h3 id="user-team-management">User &amp; Team Management</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Get current user info
+</span><span class='id identifier rubyid_me'>me</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_me'>me</span>
+<span class='id identifier rubyid_my_teams'>my_teams</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_my_teams'>my_teams</span><span class='lparen'>(</span><span class='label'>page:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>pageSize:</span> <span class='int'>10</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_my_websites'>my_websites</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_my_websites'>my_websites</span><span class='lparen'>(</span><span class='label'>includeTeams:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+
+<span class='comment'># Team management
+</span><span class='id identifier rubyid_teams'>teams</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_teams'>teams</span>
+<span class='id identifier rubyid_team'>team</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_team'>team</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>team_id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_team'>create_team</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>My Team</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_add_team_user'>add_team_user</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>team_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>team-member</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+<span class='comment'># User management (admin only, self-hosted)
+</span><span class='id identifier rubyid_users'>users</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_admin_users'>admin_users</span>
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_user'>create_user</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>username</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>password</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</code></pre>
+
+<h3 id="website-management">Website Management</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Create a website
+</span><span class='id identifier rubyid_website'>website</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_website'>create_website</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+  <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>My Website</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>domain:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>example.com</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>teamId:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>optional-team-id</span><span class='tstring_end'>&quot;</span></span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Update a website
+</span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_update_website'>update_website</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+  <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Updated Name</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>shareId:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>public-share-id</span><span class='tstring_end'>&quot;</span></span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Reset website data
+</span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_reset_website'>reset_website</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+<span class='comment'># Delete a website
+</span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_delete_website'>delete_website</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>website_id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</code></pre>
+
+<h2 id="available-methods">Available Methods</h2>
+
+<h3 id="authentication">Authentication</h3>
+
+<ul>
+<li><code>verify_token</code> - Verify the current authentication token</li>
+</ul>
+
+<h3 id="me-current-user">Me (Current User)</h3>
+
+<ul>
+<li><code>me</code> - Get current user information</li>
+<li><code>my_teams(params)</code> - Get user&#39;s teams (supports pagination)</li>
+<li><code>my_websites(params)</code> - Get user&#39;s websites</li>
+</ul>
+
+<h3 id="admin-self-hosted-only">Admin (Self-hosted only)</h3>
+
+<ul>
+<li><code>admin_users(params)</code> - List all users</li>
+<li><code>admin_websites(params)</code> - List all websites</li>
+<li><code>admin_teams(params)</code> - List all teams</li>
+</ul>
+
+<h3 id="users">Users</h3>
+
+<ul>
+<li><code>create_user(username, password, role, id:)</code> - Create a user</li>
+<li><code>user(user_id)</code> - Get user by ID</li>
+<li><code>update_user(user_id, params)</code> - Update user</li>
+<li><code>delete_user(user_id)</code> - Delete user</li>
+<li><code>user_websites(user_id, params)</code> - Get user&#39;s websites</li>
+<li><code>user_teams(user_id, params)</code> - Get user&#39;s teams</li>
+</ul>
+
+<h3 id="teams">Teams</h3>
+
+<ul>
+<li><code>teams(params)</code> - List all teams</li>
+<li><code>create_team(name)</code> - Create a team</li>
+<li><code>join_team(access_code)</code> - Join a team</li>
+<li><code>team(team_id)</code> - Get team by ID</li>
+<li><code>update_team(team_id, params)</code> - Update team</li>
+<li><code>delete_team(team_id)</code> - Delete team</li>
+<li><code>team_users(team_id, params)</code> - List team members</li>
+<li><code>add_team_user(team_id, user_id, role)</code> - Add user to team</li>
+<li><code>team_user(team_id, user_id)</code> - Get team member</li>
+<li><code>update_team_user(team_id, user_id, role)</code> - Update member role</li>
+<li><code>delete_team_user(team_id, user_id)</code> - Remove user from team</li>
+<li><code>team_websites(team_id, params)</code> - List team websites</li>
+</ul>
+
+<h3 id="websites">Websites</h3>
+
+<ul>
+<li><code>websites(params)</code> - List all websites</li>
+<li><code>create_website(params)</code> - Create a website</li>
+<li><code>website(website_id)</code> - Get website by ID</li>
+<li><code>update_website(website_id, params)</code> - Update website</li>
+<li><code>delete_website(website_id)</code> - Delete website</li>
+<li><code>reset_website(website_id)</code> - Reset website data</li>
+</ul>
+
+<h3 id="website-statistics">Website Statistics</h3>
+
+<ul>
+<li><code>website_stats(website_id, params)</code> - Get statistics</li>
+<li><code>website_active_visitors(website_id)</code> - Get active visitors</li>
+<li><code>website_pageviews(website_id, params)</code> - Get pageviews</li>
+<li><code>website_events(website_id, params)</code> - Get events (time-series)</li>
+<li><code>website_events_series(website_id, params)</code> - Get events series</li>
+<li><code>website_metrics(website_id, params)</code> - Get metrics</li>
+<li><code>website_metrics_expanded(website_id, params)</code> - Get expanded metrics</li>
+</ul>
+
+<h3 id="sessions">Sessions</h3>
+
+<ul>
+<li><code>website_sessions(website_id, params)</code> - List sessions</li>
+<li><code>website_sessions_stats(website_id, params)</code> - Get session stats</li>
+<li><code>website_sessions_weekly(website_id, params)</code> - Get weekly breakdown</li>
+<li><code>website_session(website_id, session_id)</code> - Get session details</li>
+<li><code>website_session_activity(website_id, session_id, params)</code> - Get activity</li>
+<li><code>website_session_properties(website_id, session_id)</code> - Get properties</li>
+<li><code>website_session_data_properties(website_id, params)</code> - Get data properties</li>
+<li><code>website_session_data_values(website_id, params)</code> - Get data values</li>
+</ul>
+
+<h3 id="events">Events</h3>
+
+<ul>
+<li><code>website_events_list(website_id, params)</code> - List events (paginated)</li>
+<li><code>website_event_data(website_id, event_id)</code> - Get event data</li>
+<li><code>website_event_data_events(website_id, params)</code> - Get event aggregations</li>
+<li><code>website_event_data_fields(website_id, params)</code> - Get event fields</li>
+<li><code>website_event_data_properties(website_id, params)</code> - Get event properties</li>
+<li><code>website_event_data_values(website_id, params)</code> - Get event values</li>
+<li><code>website_event_data_stats(website_id, params)</code> - Get event statistics</li>
+</ul>
+
+<h3 id="realtime">Realtime</h3>
+
+<ul>
+<li><code>realtime(website_id)</code> - Get realtime stats (last 30 minutes)</li>
+</ul>
+
+<h3 id="links">Links</h3>
+
+<ul>
+<li><code>links(params)</code> - List all links</li>
+<li><code>link(link_id)</code> - Get link by ID</li>
+<li><code>update_link(link_id, params)</code> - Update link</li>
+<li><code>delete_link(link_id)</code> - Delete link</li>
+</ul>
+
+<h3 id="pixels">Pixels</h3>
+
+<ul>
+<li><code>pixels(params)</code> - List all pixels</li>
+<li><code>pixel(pixel_id)</code> - Get pixel by ID</li>
+<li><code>update_pixel(pixel_id, params)</code> - Update pixel</li>
+<li><code>delete_pixel(pixel_id)</code> - Delete pixel</li>
+</ul>
+
+<h3 id="reports">Reports</h3>
+
+<ul>
+<li><code>reports(params)</code> - List all reports (filter by <code>websiteId</code>, <code>type</code>)</li>
+<li><code>create_report(params)</code> - Create a report</li>
+<li><code>report(report_id)</code> - Get report by ID</li>
+<li><code>update_report(report_id, params)</code> - Update report</li>
+<li><code>delete_report(report_id)</code> - Delete report</li>
+<li><code>report_attribution(params)</code> - Run attribution report</li>
+<li><code>report_breakdown(params)</code> - Run breakdown report</li>
+<li><code>report_funnel(params)</code> - Run funnel report</li>
+<li><code>report_goals(params)</code> - Run goals report</li>
+<li><code>report_journey(params)</code> - Run journey report</li>
+<li><code>report_retention(params)</code> - Run retention report</li>
+<li><code>report_revenue(params)</code> - Run revenue report</li>
+<li><code>report_utm(params)</code> - Run UTM report</li>
+</ul>
+
+<h3 id="sending-events">Sending Events</h3>
+
+<ul>
+<li><code>send_event(payload, user_agent:)</code> - Send tracking event</li>
+</ul>
 
 <h2 id="error-handling">Error Handling</h2>
 
 <p>The gem defines several custom error classes:</p>
 
+<pre class="code ruby"><code class="ruby"><span class='kw'>begin</span>
+  <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_website'>website</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>non-existent-id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Umami/NotFoundError.html" title="Umami::NotFoundError (class)">NotFoundError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Website not found: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Umami/ClientError.html" title="Umami::ClientError (class)">ClientError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Client error: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Umami/ServerError.html" title="Umami::ServerError (class)">ServerError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Server error: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Umami/AuthenticationError.html" title="Umami::AuthenticationError (class)">AuthenticationError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Authentication failed: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Umami/ConfigurationError.html" title="Umami::ConfigurationError (class)">ConfigurationError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Configuration error: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Umami/APIError.html" title="Umami::APIError (class)">APIError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>API error: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p><strong>Error class hierarchy:</strong></p>
+
 <ul>
-<li><code>Umami::ConfigurationError</code>: Raised for configuration-related issues.</li>
-<li><code>Umami::AuthenticationError</code>: Raised for authentication-related issues.</li>
-<li><code>Umami::APIError</code>: Raised for API request failures.</li>
+<li><code>Umami::Error</code> - Base error class
+
+<ul>
+<li><code>Umami::ConfigurationError</code> - Configuration issues</li>
+<li><code>Umami::AuthenticationError</code> - Authentication failures</li>
+<li><code>Umami::APIError</code> - API request failures</li>
+<li><code>Umami::NotFoundError</code> - Resource not found (404)</li>
+<li><code>Umami::ClientError</code> - Client errors (4xx)</li>
+<li><code>Umami::ServerError</code> - Server errors (5xx)</li>
+</ul></li>
 </ul>
 
 <h2 id="logging">Logging</h2>
 
 <p>The gem uses a logger that can be configured:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='period'>.</span><span class='id identifier rubyid_logger'><span class='object_link'><a href="Umami.html#logger-class_method" title="Umami.logger (method)">logger</a></span></span><span class='period'>.</span><span class='id identifier rubyid_level'>level</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='op'>::</span><span class='const'>DEBUG</span>
+<pre class="code ruby"><code class="ruby"><span class='comment'># Set log level
+</span><span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='period'>.</span><span class='id identifier rubyid_logger'><span class='object_link'><a href="Umami.html#logger-class_method" title="Umami.logger (method)">logger</a></span></span><span class='period'>.</span><span class='id identifier rubyid_level'>level</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='op'>::</span><span class='const'>DEBUG</span>
+
+<span class='comment'># Use a custom logger
+</span><span class='const'><span class='object_link'><a href="Umami.html" title="Umami (module)">Umami</a></span></span><span class='period'>.</span><span class='id identifier rubyid_logger'><span class='object_link'><a href="Umami.html#logger-class_method" title="Umami.logger (method)">logger</a></span></span> <span class='op'>=</span> <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span>
 </code></pre>
 
 <h2 id="development">Development</h2>
 
-<p>After checking out the repo, run <code>bin/setup</code> to install dependencies. Then, run <code>rake spec</code> to run the tests. You can also run <code>bin/console</code> for an interactive prompt that will allow you to experiment.</p>
+<p>After checking out the repo, run <code>bin/setup</code> to install dependencies. Then, run <code>bundle exec rake test</code> to run the tests. You can also run <code>bin/console</code> for an interactive prompt that will allow you to experiment.</p>
 
 <p>To install this gem onto your local machine, run <code>bundle exec rake install</code>.</p>
 
@@ -172,9 +607,9 @@ yard server
 </div></div>
 
       <div id="footer">
-  Generated on Mon Jul 22 17:42:41 2024 by
+  Generated on Tue Feb  3 01:30:16 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.36 (ruby-3.2.2).
+  0.9.36 (ruby-3.4.2).
 </div>
 
     </div>

@@ -57,7 +57,121 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h2 id="unreleased">[Unreleased]</h2>
+      <div id="content"><div id='filecontents'><h2 id="0-2-0-2026-02-02">[0.2.0] - 2026-02-02</h2>
+
+<h3 id="added">Added</h3>
+
+<p><strong>New Endpoint Categories:</strong></p>
+
+<ul>
+<li><strong>Me endpoints</strong>: <code>me</code>, <code>my_teams</code>, <code>my_websites</code> - Get current user info and resources</li>
+<li><strong>Admin endpoints</strong>: <code>admin_users</code>, <code>admin_websites</code>, <code>admin_teams</code> - Admin-only endpoints for self-hosted</li>
+<li><strong>Sessions endpoints</strong> (8 new methods):
+
+<ul>
+<li><code>website_sessions</code> - Get sessions within a time range</li>
+<li><code>website_sessions_stats</code> - Get summarized session statistics</li>
+<li><code>website_sessions_weekly</code> - Get session counts by hour of weekday</li>
+<li><code>website_session</code> - Get individual session details</li>
+<li><code>website_session_activity</code> - Get session activity</li>
+<li><code>website_session_properties</code> - Get session properties</li>
+<li><code>website_session_data_properties</code> - Get session data property counts</li>
+<li><code>website_session_data_values</code> - Get session data value counts</li>
+</ul></li>
+<li><strong>Realtime endpoint</strong>: <code>realtime</code> - Get live stats for last 30 minutes</li>
+<li><strong>Links endpoints</strong>: <code>links</code>, <code>link</code>, <code>update_link</code>, <code>delete_link</code></li>
+<li><strong>Pixels endpoints</strong>: <code>pixels</code>, <code>pixel</code>, <code>update_pixel</code>, <code>delete_pixel</code></li>
+<li><strong>Reports endpoints</strong> (13 new methods):
+
+<ul>
+<li>CRUD: <code>reports</code>, <code>create_report</code>, <code>report</code>, <code>update_report</code>, <code>delete_report</code></li>
+<li>Specialized: <code>report_attribution</code>, <code>report_breakdown</code>, <code>report_funnel</code>, <code>report_goals</code>, <code>report_journey</code>, <code>report_retention</code>, <code>report_revenue</code>, <code>report_utm</code></li>
+</ul></li>
+<li><strong>Website stats endpoints</strong>:
+
+<ul>
+<li><code>website_events_series</code> - Get events series with time bucketing</li>
+<li><code>website_metrics_expanded</code> - Get detailed metrics with engagement data</li>
+</ul></li>
+<li><strong>Events endpoints</strong>:
+
+<ul>
+<li><code>website_events_list</code> - Get paginated event details</li>
+<li><code>website_event_data</code> - Get data for individual event</li>
+<li><code>website_event_data_events</code> - Get event data names and counts</li>
+<li><code>website_event_data_fields</code> - Get event data fields</li>
+<li><code>website_event_data_properties</code> - Get event properties</li>
+<li><code>website_event_data_values</code> - Get event data values</li>
+<li><code>website_event_data_stats</code> - Get aggregated event stats</li>
+</ul></li>
+</ul>
+
+<p><strong>Configuration:</strong></p>
+
+<ul>
+<li><code>request_timeout=</code> setter - users can now customize timeout via <code>Umami.configure</code> block</li>
+<li>New <code>UMAMI_CLOUD_SEND_URL</code> constant for the Cloud send endpoint URL</li>
+<li>Optional <code>user_agent:</code> parameter to <code>send_event</code> method for custom User-Agent strings</li>
+</ul>
+
+<p><strong>Documentation:</strong></p>
+
+<ul>
+<li>Configuration Options table in README with all available options and defaults</li>
+<li>Report Types reference table in README</li>
+</ul>
+
+<p><strong>Test Suite:</strong></p>
+
+<ul>
+<li>Comprehensive Minitest test suite with 152 tests</li>
+<li>VCR cassettes for all read API endpoints (33 cassettes)</li>
+<li>CI workflow for Ruby 3.3, 3.4, 4.0</li>
+<li>~72% line and branch coverage</li>
+</ul>
+
+<h3 id="changed">Changed</h3>
+
+<ul>
+<li>Updated <code>website_metrics</code> documentation with all current metric types</li>
+<li>Updated user role documentation to include <code>view-only</code> option</li>
+<li>Updated team role documentation with <code>team-manager</code>, <code>team-member</code>, <code>team-view-only</code> roles</li>
+<li>Updated <code>send_event</code> documentation with <code>tag</code> and <code>id</code> parameters</li>
+<li>Improved filter parameter documentation across all endpoints</li>
+<li>Added optional <code>id</code> parameter to <code>create_user</code> for UUID control</li>
+<li>Report endpoints use <code>startDate</code>/<code>endDate</code> (ISO 8601) instead of <code>startAt</code>/<code>endAt</code> (timestamps)</li>
+<li>Added <code>window</code> parameter to <code>report_funnel</code> for days between steps</li>
+<li>Added <code>timezone</code> parameter (required) to <code>report_retention</code></li>
+<li>Updated <code>unit</code> parameter to include <code>minute</code> option</li>
+<li>Made <code>timezone</code> required for <code>website_sessions_weekly</code></li>
+<li>Made <code>startAt</code>/<code>endAt</code> required for <code>website_session_activity</code></li>
+</ul>
+
+<h3 id="fixed">Fixed</h3>
+
+<ul>
+<li><strong>Critical</strong>: Fixed <code>send_event</code> to use correct Umami Cloud URL (<code>https://cloud.umami.is/api/send</code>)</li>
+<li><strong>Critical</strong>: Added mandatory <code>User-Agent</code> header to <code>send_event</code> requests (fixes <a href="https://github.com/rameerez/umami-ruby/issues/2">#2</a>)</li>
+<li>Fixed <code>send_event</code> to not send unnecessary <code>Authorization</code> header</li>
+<li>Fixed event data endpoint paths from <code>/api/event-data/...</code> to <code>/api/websites/:websiteId/event-data/...</code></li>
+<li>Fixed <code>verify_token</code> to use POST method instead of GET</li>
+<li>Fixed <code>website_event_data_stats</code> return type documentation</li>
+</ul>
+
+<h3 id="deprecated">Deprecated</h3>
+
+<ul>
+<li><code>event_data_events</code> - Use <code>website_event_data_events</code> instead</li>
+<li><code>event_data_fields</code> - Use <code>website_event_data_fields</code> instead</li>
+<li><code>event_data_stats</code> - Use <code>website_event_data_stats</code> instead</li>
+<li><code>users</code> - Use <code>admin_users</code> instead</li>
+</ul>
+
+<h2 id="0-1-3-2025-02-19">[0.1.3] - 2025-02-19</h2>
+
+<ul>
+<li>Bug fixes and improvements</li>
+</ul>
 
 <h2 id="0-1-0-2024-07-22">[0.1.0] - 2024-07-22</h2>
 
@@ -67,9 +181,9 @@
 </div></div>
 
       <div id="footer">
-  Generated on Mon Jul 22 17:42:41 2024 by
+  Generated on Tue Feb  3 01:30:16 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.36 (ruby-3.2.2).
+  0.9.36 (ruby-3.4.2).
 </div>
 
     </div>
