@@ -1,3 +1,14 @@
+## [0.3.0] - 2026-07-24
+
+### Fixed
+
+- **Username/password authentication against self-hosted instances actually works now.** Since the connection memoization was introduced, `authenticate` built (and memoized) the Faraday connection in order to POST `/api/auth/login` — before `@access_token` existed. Faraday bakes headers in at connection build time, so every request after a successful login went out without an `Authorization` header and failed with 401. The token-based flow was unaffected, which is how this survived: docs and tests exercised logins, never "login **then** call an endpoint". `authenticate` now drops the memoized connection after storing the token so the next request rebuilds it with the Bearer header, and the new `test/integration/authentication_flow_test.rb` pins the full lifecycle (login → authorized request → connection reuse without re-login).
+- `authenticate` raises `Umami::AuthenticationError` when the login response is a 200 without a `token` field, instead of leaving a client that 401s on every call with no hint why.
+
+### Changed
+
+- HTTP 401 and 403 responses now raise `Umami::AuthenticationError` instead of the undifferentiated `Umami::ClientError`, giving long-lived clients a re-authentication signal (expired/revoked token, insufficient permissions). To keep existing `rescue Umami::APIError` handlers working — they used to catch these as `ClientError` — `AuthenticationError` is now a subclass of `Umami::APIError` (previously it subclassed `Umami::Error` directly). Code matching `Umami::ClientError` specifically for 401/403 must switch to `Umami::AuthenticationError`.
+
 ## [0.2.0] - 2026-02-02
 
 ### Added

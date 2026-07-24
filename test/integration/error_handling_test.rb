@@ -23,10 +23,14 @@ class ErrorHandlingTest < Umami::TestCase
         headers: { "Content-Type" => "application/json" }
       )
 
-    error = assert_raises(Umami::ClientError) do
+    # 401 means the token is bad (expired, revoked, never valid) — since
+    # 0.2.1 that's an AuthenticationError, which still satisfies a
+    # `rescue Umami::APIError` because it subclasses it.
+    error = assert_raises(Umami::AuthenticationError) do
       @client.me
     end
-    assert_match(/401|Unauthorized|Client error/i, error.message)
+    assert_match(/401|Unauthorized|Authentication failed/i, error.message)
+    assert_kind_of Umami::APIError, error
   end
 
   def test_handles_403_forbidden
@@ -37,10 +41,10 @@ class ErrorHandlingTest < Umami::TestCase
         headers: { "Content-Type" => "application/json" }
       )
 
-    error = assert_raises(Umami::ClientError) do
+    error = assert_raises(Umami::AuthenticationError) do
       @client.admin_users
     end
-    assert_match(/403|Forbidden|Client error/i, error.message)
+    assert_match(/403|Forbidden|Authentication failed/i, error.message)
   end
 
   # ==================== Not Found Errors ====================

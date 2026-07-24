@@ -72,6 +72,25 @@ module Umami
 
       data = JSON.parse(response.body)
       @access_token = data["token"]
+
+      # Umami answers a successful login with { "token": ..., "user": ... }
+      # (https://umami.is/docs/api/authentication#post-/api/auth/login).
+      # A 200 without a token would otherwise produce a client that fails
+      # every request with an opaque 401 — fail loudly at the source.
+      if @access_token.nil? || @access_token.empty?
+        raise Umami::AuthenticationError, "Authentication succeeded but the response carried no token"
+      end
+
+      # ⚠️ Load-bearing reset. The login POST above just memoized
+      # `@connection` — necessarily WITHOUT an Authorization header, since
+      # `@access_token` was still nil when the connection was built, and
+      # Faraday bakes headers into the connection at build time. Dropping
+      # the memo forces the next request to rebuild the connection, this
+      # time with the Bearer token (see #connection). Without this reset,
+      # every request after a username/password login fails with 401 —
+      # the exact bug shipped in <= 0.2.0 (why token-based auth was the
+      # only flow that worked against self-hosted instances).
+      @connection = nil
     rescue Faraday::Error, JSON::ParserError => e
       raise Umami::AuthenticationError, "Authentication failed: #{e.message}"
     end
@@ -1298,6 +1317,12 @@ module Umami
       handle_error(e)
     end
 
+    # Memoized so keep-alive and middleware setup are paid once, BUT the
+    # Authorization header is baked in at build time — Faraday connections
+    # don't re-read `@access_token` afterwards. Anything that changes the
+    # token MUST set `@connection = nil` so the next request rebuilds with
+    # the fresh header (see #authenticate, where forgetting exactly that
+    # was the <= 0.2.0 username/password bug).
     def connection
       @connection ||= Faraday.new(url: uri_base) do |faraday|
         faraday.request :json
@@ -1308,8 +1333,17 @@ module Umami
       end
     end
 
+    # Order matters: Faraday::UnauthorizedError (401) and ForbiddenError
+    # (403) are SUBCLASSES of Faraday::ClientError
+    # (https://lostisland.github.io/faraday/#/middleware/included/raising-errors),
+    # so they must be matched before the generic 4xx case or they'd
+    # surface as an undifferentiated ClientError. Raising
+    # AuthenticationError instead gives callers a re-authentication signal
+    # (e.g. an expired or revoked token on a long-lived client).
     def handle_error(error)
       case error
+      when Faraday::UnauthorizedError, Faraday::ForbiddenError
+        raise Umami::AuthenticationError, "Authentication failed: #{error.message}"
       when Faraday::ResourceNotFound
         raise Umami::NotFoundError, "Resource not found: #{error.message}"
       when Faraday::ClientError

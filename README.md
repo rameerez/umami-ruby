@@ -440,12 +440,12 @@ begin
   client.website("non-existent-id")
 rescue Umami::NotFoundError => e
   puts "Website not found: #{e.message}"
+rescue Umami::AuthenticationError => e
+  puts "Authentication failed: #{e.message}" # rejected login, expired/revoked token (401), forbidden (403)
 rescue Umami::ClientError => e
   puts "Client error: #{e.message}"
 rescue Umami::ServerError => e
   puts "Server error: #{e.message}"
-rescue Umami::AuthenticationError => e
-  puts "Authentication failed: #{e.message}"
 rescue Umami::ConfigurationError => e
   puts "Configuration error: #{e.message}"
 rescue Umami::APIError => e
@@ -456,10 +456,10 @@ end
 **Error class hierarchy:**
 - `Umami::Error` - Base error class
   - `Umami::ConfigurationError` - Configuration issues
-  - `Umami::AuthenticationError` - Authentication failures
   - `Umami::APIError` - API request failures
+    - `Umami::AuthenticationError` - Authentication failures: rejected logins, and HTTP 401/403 API responses (since 0.3.0 — an expired token on a long-lived client surfaces here so you can re-authenticate)
     - `Umami::NotFoundError` - Resource not found (404)
-    - `Umami::ClientError` - Client errors (4xx)
+    - `Umami::ClientError` - Other client errors (4xx)
     - `Umami::ServerError` - Server errors (5xx)
 
 ## Logging
