@@ -1,3 +1,13 @@
+## [Unreleased]
+
+### Added
+
+- `website_pageviews_over_range`: pageviews and sessions over a range of any length, keeping the unit you asked for. Umami silently answers `unit: "day"` in months once a range spans more than 7 calendar months (and `unit: "hour"` in days past 30 days), so a year of daily points came back as twelve monthly ones. The new method splits the range into requests short enough for the unit (90 days for `day`, 30 for `hour`) and joins the results.
+
+### Documentation
+
+- README: "Two traps in the Umami API". List endpoints return 20 items unless you pass `pageSize`, and long ranges come back in coarser units than requested. The basic-usage example now passes `pageSize`.
+
 ## [0.3.0] - 2026-07-24
 
 ### Fixed

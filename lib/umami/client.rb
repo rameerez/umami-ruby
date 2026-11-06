@@ -513,6 +513,59 @@ module Umami
       get("/api/websites/#{website_id}/pageviews", params)
     end
 
+    # Longest range, in days, that one pageviews request can cover and still
+    # get the unit it asked for. Umami silently picks a coarser unit when the
+    # range is too long for the one requested: 3.x answers `unit: "day"` in
+    # months once the range spans more than 7 calendar months, and
+    # `unit: "hour"` in days past 30 days (src/lib/date.ts, getMinimumUnit).
+    # These limits leave room for older servers too.
+    PAGEVIEWS_DAYS_PER_REQUEST = { "hour" => 30, "day" => 90 }.freeze
+
+    # Get pageviews and sessions over a range of any length, keeping the unit
+    # you asked for
+    #
+    # Takes the same params as {#website_pageviews}. A range longer than one
+    # request can hold for that unit (see PAGEVIEWS_DAYS_PER_REQUEST) is split
+    # into consecutive requests, and their series are joined. Without this,
+    # a year of `unit: "day"` comes back as twelve monthly points, with no
+    # error.
+    #
+    # Start `startAt` at midnight (or on the hour) in the `timezone` you pass,
+    # so no bucket is split across two requests. If one is, its counts are
+    # added together, which can count a visitor twice in "sessions".
+    #
+    # @param website_id [String] The website's ID
+    # @param params [Hash] Same as {#website_pageviews}; :startAt, :endAt and :unit are required
+    # @return [Hash] "pageviews" and "sessions" arrays of { "x" => bucket, "y" => count }, in order
+    # @example A year of daily visitors
+    #   client.website_pageviews_over_range(website_id,
+    #     startAt: Time.utc(2025, 11, 1).to_i * 1000,
+    #     endAt: Time.utc(2026, 11, 1).to_i * 1000 - 1,
+    #     unit: "day", timezone: "UTC")
+    def website_pageviews_over_range(website_id, params = {})
+      params = params.transform_keys(&:to_sym)
+      days = PAGEVIEWS_DAYS_PER_REQUEST[params[:unit].to_s]
+      return website_pageviews(website_id, params) unless days
+
+      start_at, end_at = Integer(params.fetch(:startAt)), Integer(params.fetch(:endAt))
+      step = days * 24 * 60 * 60 * 1000
+      series = Hash.new { |hash, key| hash[key] = {} }
+
+      start_at.step(end_at, step) do |from|
+        response = website_pageviews(website_id, params.merge(startAt: from, endAt: [from + step - 1, end_at].min))
+
+        %w[pageviews sessions].each do |key|
+          Array(response[key]).each do |point|
+            series[key][point["x"]] = series[key].fetch(point["x"], 0) + point["y"].to_i
+          end
+        end
+      end
+
+      %w[pageviews sessions].to_h do |key|
+        [key, series[key].map { |x, y| { "x" => x, "y" => y } }]
+      end
+    end
+
     # Get website events within a time range
     #
     # This method returns event data with optional time-series grouping.
