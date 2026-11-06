@@ -95,8 +95,8 @@ client = Umami::Client.new
 # Get current user info
 me = client.me
 
-# Get all websites
-websites = client.websites
+# Get your websites (first page only: Umami pages lists at 20, see below)
+websites = client.websites(pageSize: 200)
 
 # Get a specific website
 website = client.website("website_id")
@@ -123,6 +123,14 @@ pageviews = client.website_pageviews("website_id", {
   endAt: 1656766119687,
   unit: "day",
   timezone: "America/Los_Angeles"
+})
+
+# Pageviews over a range of any length, keeping daily points (see below)
+year = client.website_pageviews_over_range("website_id", {
+  startAt: Time.utc(2025, 11, 1).to_i * 1000,
+  endAt: Time.utc(2026, 11, 1).to_i * 1000 - 1,
+  unit: "day",
+  timezone: "UTC"
 })
 
 # Get metrics by type
@@ -325,6 +333,34 @@ client.reset_website("website_id")
 client.delete_website("website_id")
 ```
 
+### Two traps in the Umami API
+
+Both fail silently: you get a normal-looking answer with data missing.
+
+**Lists stop at 20 items.** Every list endpoint (`websites`, `my_websites`,
+`team_websites`, `admin_websites`, users, teams, reports, ...) returns one page
+of 20 unless you ask for more. With 32 sites, `client.websites` returns 20, and
+the other 12 look like they don't exist. Pass `pageSize`, and compare the
+response's `count` with the items you got:
+
+```ruby
+response = client.websites(pageSize: 200)
+response["data"].size == response["count"] # otherwise, fetch the next page
+```
+
+**Long ranges come back in coarser units than you asked for.** If a range is
+too long for the requested `unit`, the server switches to a coarser one and
+says nothing. On Umami 3.x, `unit: "day"` turns into monthly points once the
+range spans more than 7 calendar months, and `unit: "hour"` turns into daily
+points past 30 days (`getMinimumUnit` in Umami's `src/lib/date.ts`). A year of
+`unit: "day"` from `website_pageviews` is twelve monthly points, and code that
+reads them as days puts a month's total on one day.
+
+`website_pageviews_over_range` takes the same params as `website_pageviews`,
+splits a long range into requests short enough for the unit (90 days for
+`day`, 30 for `hour`), and joins the results. Start `startAt` at midnight in
+the `timezone` you pass, so no day is split across two requests.
+
 ## Available Methods
 
 ### Authentication
@@ -374,6 +410,7 @@ client.delete_website("website_id")
 - `website_stats(website_id, params)` - Get statistics
 - `website_active_visitors(website_id)` - Get active visitors
 - `website_pageviews(website_id, params)` - Get pageviews
+- `website_pageviews_over_range(website_id, params)` - Get pageviews over a range of any length, keeping the requested unit
 - `website_events(website_id, params)` - Get events (time-series)
 - `website_events_series(website_id, params)` - Get events series
 - `website_metrics(website_id, params)` - Get metrics
